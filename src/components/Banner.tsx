@@ -2,7 +2,7 @@ function Banner() {
   return (
     <header>
       <div>
-        <img src="./icons/GloboLogo.png" alt="logo" />
+        <img src="./icons/__GloboLogo__.png" alt="logo" />
       </div>
       <div>
         Online Permitting Application
