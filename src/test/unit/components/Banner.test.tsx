@@ -14,4 +14,8 @@ describe('Banner component', () => {
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('src', expectedSrc);
   });
+
+  it('dose nothing when no functionality', () => {
+    // empty
+  });
 });

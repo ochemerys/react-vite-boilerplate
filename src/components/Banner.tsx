@@ -1,10 +1,10 @@
 function Banner() {
   return (
-    <header>
+    <header className="inline-flex items-center space-x-2">
       <div>
-        <img src="./icons/GloboLogo.png" alt="logo" />
+        <img src="./icons/GloboLogo.png" alt="logo" className="w-28 h-24" />
       </div>
-      <div>
+      <div className="text-3xl font-bold text-blue-600">
         Online Permitting Application
       </div>
     </header>

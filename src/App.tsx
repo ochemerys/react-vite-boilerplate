@@ -4,7 +4,9 @@ import Banner from './components/Banner';
 
 function App() {
   return (
-    <Banner />
+    <div className="min-h-screen bg-gray-100">
+      <Banner />
+    </div>
   );
 }
 

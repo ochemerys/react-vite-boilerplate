@@ -2,3 +2,5 @@ node_modules/
 dist/
 .vite/
 .eslintrc.cjs
+vite.config.ts
+vitest.setup.ts
