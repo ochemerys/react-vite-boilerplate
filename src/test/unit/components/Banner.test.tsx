@@ -4,7 +4,7 @@ import Banner from '../../../components/Banner';
 describe('Banner component', () => {
   it('renders application name', () => {
     render(<Banner />);
-    expect(screen.getByText('Online Permitting Application')).toBeInTheDocument();
+    expect(screen.getByText('Providing Online Permitting All Over Alberta')).toBeInTheDocument();
   });
 
   it('renders logo image element', () => {
