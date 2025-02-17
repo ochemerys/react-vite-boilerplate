@@ -24,5 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "./cypress.d.ts"
+, "src/test/e2e/components/Banner.cy.tsx"  ]
 }

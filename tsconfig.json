@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "module": "ES2015",
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
+  "exclude": ["cypress.config.ts", "cypress", "node_modules"],
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
