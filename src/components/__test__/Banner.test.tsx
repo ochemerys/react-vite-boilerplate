@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Banner from '../../../components/Banner';
+import Banner from '../Banner';
 
 describe('Banner component', () => {
   it('renders application name as attribute', () => {
