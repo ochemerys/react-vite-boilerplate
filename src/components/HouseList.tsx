@@ -1,9 +1,9 @@
-// import { BannerProps } from './interfaces';
-
 function HouseList() {
   return (
-    <div className="inline-flex items-center space-x-2">
-      Houses currently on the market
+    <div>
+      <div className="flex-grow text-center">
+        <h1 className="text-2xl font-bold text-yellow-700">Houses currently on the market</h1>
+      </div>
     </div>
   );
 }

@@ -7,11 +7,13 @@ function Banner(props: BannerProps) {
   }
   const innerHtml = headerText || children;
   return (
-    <header className="inline-flex items-center space-x-2">
-      <div>
+    <header className="flex items-center justify-between p-4 bg-gray-300">
+      <div className="flex-shrink-0">
         <img src="./icons/GloboLogo.png" alt="logo" className="w-28 h-24" />
       </div>
-      <div className="text-3xl font-bold text-blue-600">{ innerHtml }</div>
+      <div className="flex-grow text-center">
+        <h1 className="text-3xl font-bold text-blue-700">{ innerHtml }</h1>
+      </div>
     </header>
   );
 }
