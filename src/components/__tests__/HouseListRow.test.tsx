@@ -1,10 +1,11 @@
 import { render, screen, within } from '@testing-library/react';
 import HouseListRow from '../HouseListRow';
+import currencyFormatter from '../../utils/currencyFormatter';
 
 describe('HouseListRow commponent', () => {
   it('renders address cell value in HouseListRow component', () => {
     const rowData = {
-      id: 0, address: 'address', country: 'country', price: 1111,
+      id: 0, address: 'address', country: 'country', price: 1111.234,
     };
     render(<HouseListRow key={rowData.id} rowData={rowData} />);
 
@@ -14,6 +15,6 @@ describe('HouseListRow commponent', () => {
 
     expect(cells[0]).toHaveTextContent(rowData.address);
     expect(cells[1]).toHaveTextContent('country');
-    expect(cells[2]).toHaveTextContent(rowData.price.toString());
+    expect(cells[2]).toHaveTextContent(currencyFormatter.format(rowData.price));
   });
 });

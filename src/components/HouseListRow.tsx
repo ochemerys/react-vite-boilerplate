@@ -1,3 +1,4 @@
+import currencyFormatter from '../utils/currencyFormatter';
 import { HouseListRowProps } from './interfaces';
 
 function HouseListRow(props: HouseListRowProps) {
@@ -6,7 +7,7 @@ function HouseListRow(props: HouseListRowProps) {
     <tr>
       <td className="border-b border-gray-300 px-4 py-2">{address}</td>
       <td className="border-b border-gray-300 px-4 py-2">{country}</td>
-      <td className="border-b border-gray-300 px-4 py-2">{price}</td>
+      <td className="border-b border-gray-300 px-4 py-2">{currencyFormatter.format(price)}</td>
     </tr>
   );
 }

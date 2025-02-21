@@ -1,5 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import HouseList from '../HouseList';
+import currencyFormatter from '../../utils/currencyFormatter';
 
 describe('HouseLst component', () => {
   it('renders HouseLIst title', () => {
@@ -7,14 +8,14 @@ describe('HouseLst component', () => {
     expect(screen.getByText('Houses currently on the market')).toBeInTheDocument();
   });
 
-  test('renders House List table', () => {
+  it('renders House List table', () => {
     render(<HouseList />);
     // Check if the table is rendered
     const tableElement = screen.getByRole('table');
     expect(tableElement).toBeInTheDocument();
   });
 
-  test('renders House List table with correct column names', () => {
+  it('renders House List table with correct column names', () => {
     render(<HouseList />);
     // Check if the table is rendered
     const tableElement = screen.getByRole('table');
@@ -29,7 +30,7 @@ describe('HouseLst component', () => {
     });
   });
 
-  test('renders House List table with values', () => {
+  it('renders House List table with values', () => {
     const data = [
       {
         id: 1,
@@ -53,7 +54,7 @@ describe('HouseLst component', () => {
       const cells = within(rows[index + 1]).getAllByRole('cell');
       expect(cells[0]).toHaveTextContent(item.address);
       expect(cells[1]).toHaveTextContent(item.country);
-      expect(cells[2]).toHaveTextContent(item.price.toString());
+      expect(cells[2]).toHaveTextContent(currencyFormatter.format(item.price));
     });
   });
 });
