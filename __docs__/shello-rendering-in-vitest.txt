@@ -1,0 +1,21 @@
+// Mock the ChildComponent
+vi.mock('./HouseListRow', () => ({
+  default: () => (
+    <tr>
+      <td>mocked address</td>
+      <td>mocked country</td>
+      <td>mocked price</td>
+    </tr>
+  ),
+}));
+
+describe("shellow rendering", () => {
+
+  it('should render the parent component with mocked child component', () => {
+    render(<HouseList />);
+
+    // Check if the mocked child component is rendered
+    expect(screen.getByText('mocked address')).toBeInTheDocument();
+  });
+
+})

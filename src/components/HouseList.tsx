@@ -17,7 +17,20 @@ const houseArray = [
 ];
 
 function HouseList() {
-  const [houses] = useState(houseArray);
+  const [houses, setHouses] = useState(houseArray);
+
+  const addHouse = () => {
+    setHouses([
+      ...houses,
+      {
+        id: 3,
+        address: '123 Main St. Edmonton',
+        country: 'Canada',
+        price: 100000,
+      },
+    ]);
+  };
+
   return (
     <div className="container mx-auto">
       <div className="flex-grow text-center m-8">
@@ -35,6 +48,9 @@ function HouseList() {
           {houses.map((h) => (<HouseListRow key={h.id} rowData={h} />))}
         </tbody>
       </table>
+      <div className="flex justify-end p-4">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="button" onClick={addHouse}>Add</button>
+      </div>
     </div>
   );
 }

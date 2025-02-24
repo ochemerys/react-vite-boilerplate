@@ -1,22 +1,25 @@
-import { render, screen, within } from '@testing-library/react';
+import {
+  render, screen, within, fireEvent,
+} from '@testing-library/react';
 import HouseList from '../HouseList';
 import currencyFormatter from '../../utils/currencyFormatter';
 
 describe('HouseLst component', () => {
-  it('renders HouseLIst title', () => {
+  beforeEach(() => {
     render(<HouseList />);
+  });
+
+  it('renders HouseLIst title', () => {
     expect(screen.getByText('Houses currently on the market')).toBeInTheDocument();
   });
 
   it('renders House List table', () => {
-    render(<HouseList />);
     // Check if the table is rendered
     const tableElement = screen.getByRole('table');
     expect(tableElement).toBeInTheDocument();
   });
 
   it('renders House List table with correct column names', () => {
-    render(<HouseList />);
     // Check if the table is rendered
     const tableElement = screen.getByRole('table');
     expect(tableElement).toBeInTheDocument();
@@ -45,7 +48,6 @@ describe('HouseLst component', () => {
         price: 500000,
       },
     ];
-    render(<HouseList />);
 
     const rows = screen.getAllByRole('row');
     expect(rows).toHaveLength(data.length + 1); // Including header row
@@ -56,5 +58,29 @@ describe('HouseLst component', () => {
       expect(cells[1]).toHaveTextContent(item.country);
       expect(cells[2]).toHaveTextContent(currencyFormatter.format(item.price));
     });
+  });
+
+  it('adds new row when the button "Add" is clicked', () => {
+    const newRowData = {
+      id: 3,
+      address: '123 Main St. Edmonton',
+      country: 'Canada',
+      price: 100000,
+    };
+
+    const rows = screen.getAllByRole('row');
+    const rowsCount = rows.length;
+
+    const button = screen.getByRole('button', { name: 'Add' });
+    fireEvent.click(button);
+
+    const newRows = screen.getAllByRole('row');
+    expect(newRows).toHaveLength(rowsCount + 1);
+
+    // last row
+    const cells = within(newRows[rowsCount]).getAllByRole('cell');
+    expect(cells[0]).toHaveTextContent(newRowData.address);
+    expect(cells[1]).toHaveTextContent(newRowData.country);
+    expect(cells[2]).toHaveTextContent(currencyFormatter.format(newRowData.price));
   });
 });
