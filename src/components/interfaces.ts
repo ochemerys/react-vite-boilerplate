@@ -6,5 +6,5 @@ export interface BannerProps {
 }
 
 export interface HouseListRowProps {
-  rowData?: IHouse,
+  rowData: IHouse,
 }
