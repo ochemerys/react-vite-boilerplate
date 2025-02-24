@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import HouseListRow from './HouseListRow';
 import { IHouse } from '../types/IHouse';
-import fetchHouses from '../api/houses-api';
+import { fetchHouses, createHouse } from '../api/houses-api';
 
 function HouseList() {
   // state hook
@@ -18,17 +18,31 @@ function HouseList() {
     getHouses();
   }, []); // add empty dependency array: we have no dependenicies
 
-  const addHouse = () => {
-    setHouses([
-      ...houses,
-      {
-        id: 3,
-        address: '123 Main St. Edmonton',
-        country: 'Canada',
-        price: 100000,
-      },
-    ]);
-  };
+  // memo hook: cache component houses if houses array is not changed
+  // memo should not used blindly - it has side effects
+  /*
+    const result = useMemo(() => {
+      return timeConsumingCalculation(houses)
+    }, [houses]);
+  */
+
+  function addHouse() {
+    const newHouse = {
+      address: '123 Main St. Edmonton',
+      country: 'Canada',
+      price: 100000,
+    };
+
+    const add = async () => {
+      const house = await createHouse(newHouse.address, newHouse.country, newHouse.price);
+
+      setHouses([
+        ...houses,
+        house,
+      ]);
+    };
+    add();
+  }
 
   return (
     <div className="container mx-auto">

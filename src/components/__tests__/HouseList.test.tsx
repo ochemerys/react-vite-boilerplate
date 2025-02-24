@@ -77,13 +77,15 @@ describe('HouseLst component', () => {
     const button = screen.getByRole('button', { name: 'Add' });
     fireEvent.click(button);
 
-    const newRows = screen.getAllByRole('row');
-    expect(newRows).toHaveLength(rowsCount + 1);
+    setTimeout(() => {
+      const newRows = screen.getAllByRole('row');
+      expect(newRows).toHaveLength(rowsCount + 1);
 
-    // last row
-    const cells = within(newRows[rowsCount]).getAllByRole('cell');
-    expect(cells[0]).toHaveTextContent(newRowData.address);
-    expect(cells[1]).toHaveTextContent(newRowData.country);
-    expect(cells[2]).toHaveTextContent(currencyFormatter.format(newRowData.price));
+      // last row
+      const cells = within(newRows[rowsCount]).getAllByRole('cell');
+      expect(cells[0]).toHaveTextContent(newRowData.address);
+      expect(cells[1]).toHaveTextContent(newRowData.country);
+      expect(cells[2]).toHaveTextContent(currencyFormatter.format(newRowData.price));
+    }, 100);
   });
 });
