@@ -15,7 +15,9 @@ function HouseListRow(props: HouseListRowProps) {
 
 // cache component output if it is not changed
 /*
-  memo has side effects and should not used blindly:
+  memo should not used blindly:
+    - it has side effects
+    - it use shellow rendering
   use React Dev Tools: Profiler to check performance with or without chacking
   for current application:
     - without caching: 0.2 ms

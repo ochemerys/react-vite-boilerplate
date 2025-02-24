@@ -1,23 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HouseListRow from './HouseListRow';
-
-const houseArray = [
-  {
-    id: 1,
-    address: '12 Valley of Kings, Geneva',
-    country: 'Switzerland',
-    price: 900000,
-  },
-  {
-    id: 2,
-    address: '89 Road of Forks, Bern',
-    country: 'Switzerland',
-    price: 500000,
-  },
-];
+import { IHouse } from '../types/IHouse';
+import fetchHouses from '../api/houses-api';
 
 function HouseList() {
-  const [houses, setHouses] = useState(houseArray);
+  // state hook
+  const [houses, setHouses] = useState([] as IHouse[]);
+
+  // effect hook
+  useEffect(() => {
+    // does not support async function as parameter
+    // that's why we need async getHouses function
+    const getHouses = async () => {
+      const houseArray = await fetchHouses();
+      setHouses(houseArray);
+    };
+    getHouses();
+  }, []); // add empty dependency array: we have no dependenicies
 
   const addHouse = () => {
     setHouses([
