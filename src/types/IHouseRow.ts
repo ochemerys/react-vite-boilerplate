@@ -1,4 +1,4 @@
-export interface IHouse {
+export interface IHouseRow {
   id: number;
   address: string,
   country: string,
