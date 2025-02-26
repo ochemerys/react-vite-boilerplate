@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import HouseListRow from './HouseListRow';
-import { IHouse } from '../types/IHouse';
+import { IHouseRow } from '../types/IHouseRow';
+import { HouseListProps } from './interfaces';
 import { fetchHouses, createHouse } from '../api/houses-api';
 
-function HouseList() {
+function HouseList(props: HouseListProps) {
+  const { selectHouse } = props;
   // state hook
-  const [houses, setHouses] = useState([] as IHouse[]);
+  const [houses, setHouses] = useState([] as IHouseRow[]);
 
   // effect hook
   useEffect(() => {
@@ -58,7 +60,7 @@ function HouseList() {
           </tr>
         </thead>
         <tbody>
-          {houses.map((h) => (<HouseListRow key={h.id} rowData={h} />))}
+          {houses.map((h) => (<HouseListRow key={h.id} rowData={h} selectHouse={selectHouse} />))}
         </tbody>
       </table>
       <div className="flex justify-end p-4">
