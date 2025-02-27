@@ -44,7 +44,7 @@ describe('App component', () => {
 
     if (rows.length > 1) {
       fireEvent.click(rows[1]); // row[0] is a header, row[1] is data row
-      expect(screen.getByText('House')).toBeInTheDocument();
+      expect(screen.getByText('House on the market')).toBeInTheDocument();
     }
   });
 });

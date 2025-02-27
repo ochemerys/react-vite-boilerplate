@@ -1,4 +1,4 @@
-import { IHouseRow } from '../types/IHouseRow';
+import { IHouse } from '../types/IHouse';
 
 export interface BannerProps {
   headerText?: string,
@@ -6,10 +6,14 @@ export interface BannerProps {
 }
 
 export interface HouseListRowProps {
-  rowData: IHouseRow,
-  selectHouse?: (house: IHouseRow) => void,
+  rowData: IHouse,
+  selectHouse?: (house: IHouse) => void,
 }
 
 export interface HouseListProps {
-  selectHouse?: (house: IHouseRow) => void,
+  selectHouse?: (house: IHouse) => void,
+}
+
+export interface HouseProps {
+  houseData: IHouse
 }

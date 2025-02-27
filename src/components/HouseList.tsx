@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import HouseListRow from './HouseListRow';
-import { IHouseRow } from '../types/IHouseRow';
+import { IHouse } from '../types/IHouse';
 import { HouseListProps } from './interfaces';
 import { fetchHouses, createHouse } from '../api/houses-api';
 
 function HouseList(props: HouseListProps) {
   const { selectHouse } = props;
   // state hook
-  const [houses, setHouses] = useState([] as IHouseRow[]);
+  const [houses, setHouses] = useState([] as IHouse[]);
 
   // effect hook
   useEffect(() => {
