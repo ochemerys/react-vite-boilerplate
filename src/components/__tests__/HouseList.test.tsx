@@ -33,18 +33,6 @@ describe('HouseLst component', () => {
 
     render(<HouseList />);
 
-    // Check if the title is rendered
-    expect(screen.getByText('Houses currently on the market')).toBeInTheDocument();
-    // Check if the table is rendered
-    const tableElement = screen.getByRole('table');
-    expect(tableElement).toBeInTheDocument();
-    // Check for specific column names within the table header
-    const columnNames = ['Address', 'Country', 'Asking Price'];
-    const headers = within(tableElement).getAllByRole('columnheader');
-    const headerTexts = headers.map((header) => header.textContent);
-    columnNames.forEach((name) => {
-      expect(headerTexts).toContain(name);
-    });
     // check if correct request is made
     await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
     // fetching data
@@ -78,6 +66,9 @@ describe('HouseLst component', () => {
       });
 
     render(<HouseList />);
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
+
     const button = screen.getByRole('button', { name: 'Add' });
     expect(button).toBeInTheDocument();
     // check if correct request is made

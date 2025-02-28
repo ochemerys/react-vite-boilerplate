@@ -17,3 +17,7 @@ export interface HouseListProps {
 export interface HouseProps {
   houseData: IHouse
 }
+
+export interface LoadingIndicatorProps {
+  loadingState: string
+}

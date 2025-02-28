@@ -23,9 +23,9 @@ describe('App component', () => {
     expect(screen.getByText('Providing houses all over the world')).toBeInTheDocument();
   });
 
-  it('initially renders HouseList component', () => {
+  it('initially renders HouseList component with loading status', () => {
     render(<App />);
-    expect(screen.getByText('Houses currently on the market')).toBeInTheDocument();
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
   it('renders House component when house row is selected', async () => {
