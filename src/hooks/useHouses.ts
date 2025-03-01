@@ -1,31 +1,22 @@
 import { useEffect, useState } from 'react';
-import { fetchHouses } from '../api/houses-api';
 import { IHouse } from '../types/IHouse';
-import loadingStatus from '../utils/loadingStatus';
+import useGetRequest from './useGetRequest';
 
 function useHouses() {
   // state hook
   const [houses, setHouses] = useState([] as IHouse[]);
-  const [loadingState, setLoadingState] = useState(loadingStatus.isLoading);
+  const { get, loadingState } = useGetRequest('http://localhost:3000/houses');
 
   // effect hook
   useEffect(() => {
     // does not support async function as parameter
     // that's why we need async getHouses function
-    const getHouses = async () => {
-      setLoadingState(loadingStatus.isLoading);
-      try {
-        const houseArray = await fetchHouses();
-        // setTimeout(() => {
-        setHouses(houseArray);
-        setLoadingState(loadingStatus.loaded);
-        // }, 1000);
-      } catch {
-        setLoadingState(loadingStatus.hasErrored);
-      }
+    const fetchHouses = async () => {
+      const items = await get();
+      setHouses(items);
     };
-    getHouses();
-  }, []); // add empty dependency array: we have no dependenicies
+    fetchHouses();
+  }, [get]);
 
   // memo hook: cache component houses if houses array is not changed
   // memo should not used blindly - it has side effects
