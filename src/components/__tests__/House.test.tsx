@@ -4,7 +4,7 @@ import { IHouse } from '../../types/IHouse';
 import currencyFormatter from '../../utils/currencyFormatter';
 
 describe('House component', () => {
-  it('renders application name as attribute', () => {
+  it('should render application name as attribute', () => {
     const dummyHouse:IHouse = {
       id: 0, address: '', country: '', price: 0, description: '', image: '',
     };
@@ -12,7 +12,7 @@ describe('House component', () => {
     expect(screen.getByText('House on the market')).toBeInTheDocument();
   });
 
-  it('renders default image for house when image name is empty', () => {
+  it('should render default image for house when image name is empty', () => {
     const dummyHouse:IHouse = {
       id: 0, address: '', country: '', price: 0, description: '', image: '',
     };
@@ -23,7 +23,7 @@ describe('House component', () => {
     expect(img).toHaveAttribute('src', expectedSrc);
   });
 
-  it('renders house properly when correct data is passed to component', () => {
+  it('should render house properly when correct data is passed to component', () => {
     const testHouse:IHouse = {
       id: 1, address: 'test address', country: 'thet country', price: 123, description: 'test description', image: '534182.jpeg',
     };
@@ -32,7 +32,9 @@ describe('House component', () => {
     expect(screen.getByText(testHouse.address)).toBeInTheDocument();
     expect(screen.getByText(testHouse.country)).toBeInTheDocument();
     expect(screen.getByText(currencyFormatter.format(testHouse.price))).toBeInTheDocument();
-    expect(screen.getByText(testHouse.description)).toBeInTheDocument();
+    if (testHouse.description !== undefined) {
+      expect(screen.getByText(testHouse.description)).toBeInTheDocument();
+    }
     const img = screen.getByAltText('house');
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute('src', expectedSrc);

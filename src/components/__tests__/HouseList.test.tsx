@@ -26,7 +26,7 @@ describe('HouseLst component', () => {
     vi.resetAllMocks();
   });
 
-  it('fetches and displays data on mount', async () => {
+  it('should fetch and displays data on mount', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       json: vi.fn().mockResolvedValue([...mockData]),
     });
@@ -47,7 +47,7 @@ describe('HouseLst component', () => {
     });
   });
 
-  it('adds new row when the button "Add" is clicked', async () => {
+  it('should add new row when the button "Add" is clicked', async () => {
     const newRowData = {
       id: 3,
       address: '123 Main St. Edmonton',

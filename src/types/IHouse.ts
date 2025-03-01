@@ -3,6 +3,6 @@ export interface IHouse {
   address: string,
   country: string,
   price: number,
-  description: string,
-  image:string
+  description?: string,
+  image?:string
 }

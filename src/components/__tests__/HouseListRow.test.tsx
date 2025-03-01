@@ -5,7 +5,7 @@ import HouseListRow from '../HouseListRow';
 import currencyFormatter from '../../utils/currencyFormatter';
 
 describe('HouseListRow commponent', () => {
-  it('renders address cell value in HouseListRow component', () => {
+  it('should render address cell value in HouseListRow component', () => {
     const rowData = {
       id: 0, address: 'address', country: 'country', price: 1111.234,
     };
@@ -20,7 +20,7 @@ describe('HouseListRow commponent', () => {
     expect(cells[2]).toHaveTextContent(currencyFormatter.format(rowData.price));
   });
 
-  it('calls onClick with the correct house when row is clicked', () => {
+  it('should call onClick with the correct house when row is clicked', () => {
     const handleClick = vi.fn();
     const rowData = {
       id: 1, address: 'address', country: 'country', price: 1111.234,
