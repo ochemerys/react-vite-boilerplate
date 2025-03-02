@@ -69,6 +69,20 @@ describe('HouseLst component', () => {
 
     await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
 
+    const addressInput = screen.getByPlaceholderText('Enter Address');
+    addressInput.nodeValue = newRowData.address;
+    fireEvent.change(addressInput, { target: { value: newRowData.address } });
+
+    const countryInput = screen.getByPlaceholderText('Enter Country');
+    countryInput.nodeValue = newRowData.country;
+    fireEvent.change(countryInput, { target: { value: newRowData.country } });
+
+    const priceInput = screen.getByPlaceholderText('Enter Price');
+    priceInput.nodeValue = newRowData.price.toString();
+    fireEvent.change(priceInput, { target: { value: newRowData.price } });
+
+    expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument();
+
     const button = screen.getByRole('button', { name: 'Add' });
     expect(button).toBeInTheDocument();
     // check if correct request is made

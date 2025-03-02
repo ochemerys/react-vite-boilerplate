@@ -1,26 +1,29 @@
+import { useState } from 'react';
 import HouseListRow from './HouseListRow';
 import { HouseListProps } from './interfaces';
 import { createHouse } from '../api/houses-api';
 import useHouses from '../hooks/useHouses';
 import loadingStatus from '../utils/loadingStatus';
 import LoadingIndicator from './LoadingIndicator';
+import { IHouse } from '../types/IHouse';
 
 function HouseList(props: HouseListProps) {
   const { selectHouse } = props;
+  const emptyHouse:IHouse = {
+    id: 0,
+    address: '',
+    country: '',
+    price: 0,
+  };
 
   const { houses, setHouses, loadingState } = useHouses();
+  const [newHouse, setNewHouse] = useState(emptyHouse);
 
   if (loadingState !== loadingStatus.loaded) {
     return <LoadingIndicator loadingState={loadingState} />;
   }
 
   function addHouse() {
-    const newHouse = {
-      address: '123 Main St. Edmonton',
-      country: 'Canada',
-      price: 100000,
-    };
-
     const add = async () => {
       const house = await createHouse(newHouse.address, newHouse.country, newHouse.price);
 
@@ -48,6 +51,58 @@ function HouseList(props: HouseListProps) {
         <tbody>
           {houses.map((h) => (<HouseListRow key={h.id} rowData={h} selectHouse={selectHouse} />))}
         </tbody>
+        <tfoot>
+          <td className="py-2 px-4 border-t">
+            <form>
+              <input
+                id="address"
+                name="address"
+                type="text"
+                value={newHouse.address}
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Enter Address"
+                onChange={(e) => {
+                  setNewHouse({
+                    ...newHouse,
+                    address: e.target.value,
+                  });
+                }}
+              />
+            </form>
+          </td>
+          <td className="py-2 px-4 border-t">
+            <input
+              id="country"
+              name="country"
+              type="text"
+              className="w-full p-2 border border-gray-300 rounded"
+              value={newHouse.country}
+              onChange={(e) => {
+                setNewHouse({
+                  ...newHouse,
+                  country: e.target.value,
+                });
+              }}
+              placeholder="Enter Country"
+            />
+          </td>
+          <td className="py-2 px-4 border-t">
+            <input
+              id="price"
+              name="price"
+              value={newHouse.price}
+              onChange={(e) => {
+                setNewHouse({
+                  ...newHouse,
+                  price: parseFloat(e.target.value),
+                });
+              }}
+              type="number"
+              className="w-full p-2 border border-gray-300 rounded"
+              placeholder="Enter Price"
+            />
+          </td>
+        </tfoot>
       </table>
       <div className="flex justify-end p-4">
         <button className="bg-blue-500 text-white px-4 py-2 rounded" type="button" onClick={addHouse}>Add</button>
