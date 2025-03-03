@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import loadingStatus from '../utils/loadingStatus';
+import * as api from '../api/houses';
 
 function useGetRequest(url: string | URL | Request) {
   const [loadingState, setLoadingState] = useState(loadingStatus.isLoading);
@@ -9,8 +10,7 @@ function useGetRequest(url: string | URL | Request) {
   const get = useCallback(async () => {
     setLoadingState(loadingStatus.isLoading);
     try {
-      const resp = await fetch(url);
-      const result = await resp.json();
+      const result = await api.get(url);
 
       setLoadingState(loadingStatus.loaded);
       return result;

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { IHouse } from '../types/IHouse';
 import useGetRequest from './useGetRequest';
+import houseApiBaseUrl from '../app.config';
 
 function useHouses() {
   // state hook
   const [houses, setHouses] = useState([] as IHouse[]);
-  const { get, loadingState } = useGetRequest('http://localhost:3000/houses');
+  const { get, loadingState } = useGetRequest(houseApiBaseUrl);
 
   // effect hook
   useEffect(() => {

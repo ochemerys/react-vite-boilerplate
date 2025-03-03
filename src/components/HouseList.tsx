@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import HouseListRow from './HouseListRow';
 import { HouseListProps } from './interfaces';
-import { createHouse } from '../api/houses-api';
+import { post } from '../api/houses';
 import useHouses from '../hooks/useHouses';
 import loadingStatus from '../utils/loadingStatus';
 import LoadingIndicator from './LoadingIndicator';
 import { IHouse } from '../types/IHouse';
+import houseApiBaseUrl from '../app.config';
 
 function HouseList(props: HouseListProps) {
   const { selectHouse } = props;
@@ -23,9 +24,9 @@ function HouseList(props: HouseListProps) {
     return <LoadingIndicator loadingState={loadingState} />;
   }
 
-  function addHouse() {
+  function addHouseHandler() {
     const add = async () => {
-      const house = await createHouse(newHouse.address, newHouse.country, newHouse.price);
+      const house = await post(houseApiBaseUrl, newHouse);
 
       setHouses([
         ...houses,
@@ -33,6 +34,7 @@ function HouseList(props: HouseListProps) {
       ]);
     };
     add();
+    setNewHouse(emptyHouse);
   }
 
   return (
@@ -105,7 +107,7 @@ function HouseList(props: HouseListProps) {
         </tfoot>
       </table>
       <div className="flex justify-end p-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="button" onClick={addHouse}>Add</button>
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="button" onClick={addHouseHandler}>Add</button>
       </div>
     </div>
   );
