@@ -1,7 +1,17 @@
+/* eslint-disable function-paren-newline */
 import { IHouse } from '../types/IHouse';
 
 const get = async (url: string | URL | Request) => {
-  const resp = await fetch(url);
+  const resp = await fetch(url,
+  //   , {
+  //   cache: 'no-cache', // Prevent caching
+  //   headers: {
+  //     'Cache-Control': 'no-cache, no-store, must-revalidate',
+  //     Pragma: 'no-cache',
+  //     Expires: '0',
+  //   },
+  // }
+  );
   return resp.json();
 };
 

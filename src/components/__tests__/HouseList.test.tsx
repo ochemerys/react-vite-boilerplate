@@ -26,7 +26,7 @@ describe('HouseLst component', () => {
     vi.resetAllMocks();
   });
 
-  it('should fetch and displays data on mount', async () => {
+  it('should fetch and display data on mount', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       json: vi.fn().mockResolvedValue([...mockData]),
     });
@@ -37,7 +37,7 @@ describe('HouseLst component', () => {
     await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
     // fetching data
     const rows = screen.getAllByRole('row');
-    expect(rows).toHaveLength(2 + 1); // Including header row
+    expect(rows).toHaveLength(2 + 1 + 1); // Including header amd footer rows
 
     mockData.forEach((item, index) => {
       const cells = within(rows[index + 1]).getAllByRole('cell');
@@ -88,8 +88,8 @@ describe('HouseLst component', () => {
     // check if correct request is made
     await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
 
-    // just only header
-    expect(screen.getAllByRole('row')).toHaveLength(1);
+    // just header + foooter rows are present at this point
+    expect(screen.getAllByRole('row')).toHaveLength(2);
 
     fireEvent.click(button);
 
@@ -108,11 +108,11 @@ describe('HouseLst component', () => {
       expect(requestBody.price).toBe(newRowData.price);
     });
 
-    const rowsCount = 1 + 1; // one header row and one data row
+    const rowsCount = 1 + 1 + 1; // one header row, one data row and one footer row
     const newRows = screen.getAllByRole('row');
     expect(newRows).toHaveLength(rowsCount);
 
-    // last row cells
+    // last data row cell
     const cells = within(newRows[1]).getAllByRole('cell');
     expect(cells[0]).toHaveTextContent(newRowData.address);
     expect(cells[1]).toHaveTextContent(newRowData.country);

@@ -54,56 +54,58 @@ function HouseList(props: HouseListProps) {
           {houses.map((h) => (<HouseListRow key={h.id} rowData={h} selectHouse={selectHouse} />))}
         </tbody>
         <tfoot>
-          <td className="py-2 px-4 border-t">
-            <form>
+          <tr>
+            <td className="py-2 px-4 border-t">
+              <form>
+                <input
+                  id="address"
+                  name="address"
+                  type="text"
+                  value={newHouse.address}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  placeholder="Enter Address"
+                  onChange={(e) => {
+                    setNewHouse({
+                      ...newHouse,
+                      address: e.target.value,
+                    });
+                  }}
+                />
+              </form>
+            </td>
+            <td className="py-2 px-4 border-t">
               <input
-                id="address"
-                name="address"
+                id="country"
+                name="country"
                 type="text"
-                value={newHouse.address}
                 className="w-full p-2 border border-gray-300 rounded"
-                placeholder="Enter Address"
+                value={newHouse.country}
                 onChange={(e) => {
                   setNewHouse({
                     ...newHouse,
-                    address: e.target.value,
+                    country: e.target.value,
                   });
                 }}
+                placeholder="Enter Country"
               />
-            </form>
-          </td>
-          <td className="py-2 px-4 border-t">
-            <input
-              id="country"
-              name="country"
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded"
-              value={newHouse.country}
-              onChange={(e) => {
-                setNewHouse({
-                  ...newHouse,
-                  country: e.target.value,
-                });
-              }}
-              placeholder="Enter Country"
-            />
-          </td>
-          <td className="py-2 px-4 border-t">
-            <input
-              id="price"
-              name="price"
-              value={newHouse.price}
-              onChange={(e) => {
-                setNewHouse({
-                  ...newHouse,
-                  price: parseFloat(e.target.value),
-                });
-              }}
-              type="number"
-              className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Enter Price"
-            />
-          </td>
+            </td>
+            <td className="py-2 px-4 border-t">
+              <input
+                id="price"
+                name="price"
+                value={newHouse.price}
+                onChange={(e) => {
+                  setNewHouse({
+                    ...newHouse,
+                    price: parseFloat(e.target.value),
+                  });
+                }}
+                type="number"
+                className="w-full p-2 border border-gray-300 rounded"
+                placeholder="Enter Price"
+              />
+            </td>
+          </tr>
         </tfoot>
       </table>
       <div className="flex justify-end p-4">
