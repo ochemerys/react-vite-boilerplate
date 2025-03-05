@@ -1,81 +1,48 @@
 // useHouses.test.ts
-// import { renderHook, waitFor } from '@testing-library/react';
-// import useHouses from '../useHouses';
-// import useGetRequest from '../useGetRequest';
-// import loadingStatus from '../../utils/loadingStatus';
-// import { IHouse } from '../../types/IHouse';
+import { renderHook, waitFor } from '@testing-library/react';
+import {
+  describe, it, expect, afterEach, vi,
+} from 'vitest';
+import useHouses from '../useHouses';
 
 describe('useHouses', () => {
-  beforeEach(() => {
-    vi.resetAllMocks();
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
-  it('should fetch and set houses on mount', async () => {
-    // // Mock data
-    // const mockHouses: IHouse[] = [
-    //   {
-    //     id: 1, address: '123 Main St', country: 'USA', price: 100000,
-    //   },
-    //   {
-    //     id: 2, address: '456 Oak Ave', country: 'Canada', price: 200000,
-    //   },
-    // ];
-
-    // // Mock useGetRequest to resolve with mockHouses
-    // global.fetch = vi.fn().mockReturnValue({
-    //   get: vi.fn().mockResolvedValue(mockHouses),
-    //   loadingState: loadingStatus.loaded,
-    // });
-
-    // // Render the hook
-    // const { result } = renderHook(() => useHouses());
-
-    // // Wait for the asynchronous operation to complete
-    // await waitFor(() => {
-    //   // Assert that houses state is set to the mocked array
-    //   expect(result.current.houses).toEqual(mockHouses);
-    // });
-
-    // // Ensure that useGetRequest get method is called once
-    // expect(vi.fn().mock.results[0].value.get).toHaveBeenCalledTimes(1);
+  it('should have initial state with loadingState "loading" and houses empty', () => {
+    const { result } = renderHook(() => useHouses());
+    // Assuming the initial loadingState is "loading"
+    expect(result.current.loadingState).toBe('Loading...');
+    expect(result.current.houses).toEqual([]);
   });
 
-  // it('should handle loading state', async () => {
-  //   // Mock useGetRequest to resolve with mockHouses
-  //   global.fetch = vi.fn().mockReturnValue({
-  //     get: vi.fn().mockResolvedValue([{
-  //       id: 1, address: '123 Main St', country: 'USA', price: 100000,
-  //     }]),
-  //     loadingState: loadingStatus.isLoading,
-  //   });
+  it('should fetch houses data successfully', async () => {
+    // Arrange: simulate a successful fetch returning house objects.
+    const housesData = [{ id: 1, name: 'House 1' }, { id: 2, name: 'House 2' }];
+    vi.spyOn(global, 'fetch').mockResolvedValue({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      json: vi.fn().mockResolvedValue(housesData),
+    } as unknown as Response);
+    // Act: Render the hook.
+    const { result } = renderHook(() => useHouses());
+    // Wait until loadingState changes from "loading" to "loaded"
+    await waitFor(() => expect(result.current.loadingState).toBe('loaded'));
+    // Assert: check that houses are correctly set.
+    expect(result.current.houses).toEqual(housesData);
+  });
 
-  //   // Render the hook
-  //   const { result } = renderHook(() => useHouses());
-
-  //   // check if initial state is loading
-  //   expect(result.current.loadingState).toBe(loadingStatus.isLoading);
-  //   await waitFor(() => {
-  //     // check if final state is loaded.
-  //     expect(result.current.loadingState).toBe(loadingStatus.loaded);
-  //   });
-  // });
-
-  // it('should handle error state', async () => {
-  //   // Mock useGetRequest to reject
-  //   global.fetch = vi.fn().mockReturnValue({
-  //     get: vi.fn().mockRejectedValue(new Error('Fetch failed')),
-  //     loadingState: loadingStatus.hasErrored,
-  //   });
-
-  //   // Render the hook
-  //   const { result } = renderHook(() => useHouses());
-
-  //   // check if initial state is loading
-  //   expect(result.current.loadingState).toBe(loadingStatus.isLoading);
-  //   await waitFor(() => {
-  //     // check if final state is errored.
-  //     expect(result.current.loadingState).toBe(loadingStatus.hasErrored);
-  //     expect(result.current.houses).toEqual([]);
-  //   });
-  // });
+  it('should handle fetch errors', async () => {
+    // Arrange: simulate a failed fetch.
+    const errorMessage = 'Failed to fetch';
+    vi.spyOn(global, 'fetch').mockRejectedValue(new Error(errorMessage));
+    // Act: Render the hook.
+    const { result } = renderHook(() => useHouses());
+    // Wait until loadingState indicates an error.
+    await waitFor(() => expect(result.current.loadingState).toBe('An error occured while loading'));
+    // Assert: On error, houses remains empty.
+    expect(result.current.houses).toBeUndefined();
+  });
 });
