@@ -1,13 +1,7 @@
 import { createContext } from 'react';
-import { IHouse } from '../types/IHouse';
+import INavigationContext from '../types/INavigationContext';
 
-interface NavigationContextType {
-  current: string;
-  selectedHouse?: IHouse;
-  navigate: (navTo: string, house?: IHouse) => void;
-}
-
-const NavigationContext = createContext<NavigationContextType>({
+const NavigationContext = createContext<INavigationContext>({
   current: 'home',
   navigate: () => {},
 });

@@ -3,10 +3,8 @@ import navValues from '../utils/navValues';
 import House from './House';
 import HouseList from './HouseList';
 import NavigationContext from '../contexts/NavigationContext';
+import { ComponentPickerProps } from './interfaces';
 
-interface ComponentPickerProps {
-  currentNavLocation: string;
-}
 function ComponentPicker({ currentNavLocation }: ComponentPickerProps) {
   const { selectedHouse } = useContext(NavigationContext);
   switch (currentNavLocation) {

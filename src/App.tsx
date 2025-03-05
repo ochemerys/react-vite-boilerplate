@@ -4,7 +4,7 @@ import Banner from './components/Banner';
 import navValues from './utils/navValues';
 import ComponentPicker from './components/ComponentPicker';
 import NavigationContext from './contexts/NavigationContext';
-import { IHouse } from './types/IHouse';
+import IHouse from './types/IHouse';
 
 interface NavigationState {
   current: string;

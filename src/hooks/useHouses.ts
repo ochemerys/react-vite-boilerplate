@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IHouse } from '../types/IHouse';
+import IHouse from '../types/IHouse';
 import useGetRequest from './useGetRequest';
 import houseApiBaseUrl from '../app.config';
 

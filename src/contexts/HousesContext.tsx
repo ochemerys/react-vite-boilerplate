@@ -5,7 +5,7 @@ import {
   useState,
   useMemo,
 } from 'react';
-import { IHouse } from '../types/IHouse';
+import IHouse from '../types/IHouse';
 import { get, post } from '../api/houses';
 import houseApiBaseUrl from '../app.config';
 import loadingStatus from '../utils/loadingStatus';

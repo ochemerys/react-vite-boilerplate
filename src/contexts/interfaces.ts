@@ -1,4 +1,4 @@
-import { IHouse } from '../types/IHouse';
+import IHouse from '../types/IHouse';
 
 export interface HousesContextProps {
   houses: IHouse[];

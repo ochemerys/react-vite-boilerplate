@@ -1,5 +1,5 @@
 /* eslint-disable function-paren-newline */
-import { IHouse } from '../types/IHouse';
+import IHouse from '../types/IHouse';
 
 const get = async (url: string | URL | Request) => {
   const resp = await fetch(url,

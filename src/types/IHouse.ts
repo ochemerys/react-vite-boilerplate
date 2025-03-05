@@ -1,4 +1,4 @@
-export interface IHouse {
+interface IHouse {
   id: number;
   address: string,
   country: string,
@@ -6,3 +6,5 @@ export interface IHouse {
   description?: string,
   image?:string
 }
+
+export default IHouse;

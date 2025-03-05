@@ -4,7 +4,7 @@ import { post } from '../api/houses';
 import useHouses from '../hooks/useHouses';
 import loadingStatus from '../utils/loadingStatus';
 import LoadingIndicator from './LoadingIndicator';
-import { IHouse } from '../types/IHouse';
+import IHouse from '../types/IHouse';
 import houseApiBaseUrl from '../app.config';
 
 function HouseList() {

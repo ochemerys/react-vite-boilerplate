@@ -1,4 +1,4 @@
-import { IHouse } from '../types/IHouse';
+import IHouse from '../types/IHouse';
 
 export interface BannerProps {
   headerText?: string,
@@ -10,9 +10,9 @@ export interface HouseListRowProps {
   selectHouse?: (house: IHouse) => void,
 }
 
-// export interface HouseListProps {
-//   selectHouse?: (house: IHouse) => void,
-// }
+export interface ComponentPickerProps {
+  currentNavLocation: string;
+}
 
 export interface HouseProps {
   houseData: IHouse
