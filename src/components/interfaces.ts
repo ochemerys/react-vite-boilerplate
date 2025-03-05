@@ -10,9 +10,9 @@ export interface HouseListRowProps {
   selectHouse?: (house: IHouse) => void,
 }
 
-export interface HouseListProps {
-  selectHouse?: (house: IHouse) => void,
-}
+// export interface HouseListProps {
+//   selectHouse?: (house: IHouse) => void,
+// }
 
 export interface HouseProps {
   houseData: IHouse

@@ -1,8 +1,9 @@
 import {
   render, screen, within, fireEvent,
 } from '@testing-library/react';
-import HouseListRow from '../HouseListRow';
+import { HouseListRow } from '../HouseListRow';
 import currencyFormatter from '../../utils/currencyFormatter';
+import NavigationContext from '../../contexts/NavigationContext';
 
 describe('HouseListRow commponent', () => {
   it('should render address cell value in HouseListRow component', () => {
@@ -21,17 +22,21 @@ describe('HouseListRow commponent', () => {
   });
 
   it('should call onClick with the correct house when row is clicked', () => {
-    const handleClick = vi.fn();
+    const mockNavigate = vi.fn();
+    const mockNavigationContext = {
+      current: 'home',
+      navigate: mockNavigate,
+    };
     const rowData = {
       id: 1, address: 'address', country: 'country', price: 1111.234,
     };
-    render(<HouseListRow key={rowData.id} rowData={rowData} selectHouse={handleClick} />);
-
+    render(
+      <NavigationContext.Provider value={mockNavigationContext}>
+        <HouseListRow key={rowData.id} rowData={rowData} />
+      </NavigationContext.Provider>,
+    );
     const row = screen.getByRole('row');
-    if (row) {
-      fireEvent.click(row);
-    }
-
-    expect(handleClick).toHaveBeenCalledWith(rowData);
+    fireEvent.click(row);
+    expect(mockNavigate).toHaveBeenCalledWith('House', rowData);
   });
 });

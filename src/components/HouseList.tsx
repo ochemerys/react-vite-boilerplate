@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import HouseListRow from './HouseListRow';
-import { HouseListProps } from './interfaces';
+import { HouseListRow } from './HouseListRow';
 import { post } from '../api/houses';
 import useHouses from '../hooks/useHouses';
 import loadingStatus from '../utils/loadingStatus';
@@ -8,8 +7,7 @@ import LoadingIndicator from './LoadingIndicator';
 import { IHouse } from '../types/IHouse';
 import houseApiBaseUrl from '../app.config';
 
-function HouseList(props: HouseListProps) {
-  const { selectHouse } = props;
+function HouseList() {
   const emptyHouse:IHouse = {
     id: 0,
     address: '',
@@ -51,7 +49,7 @@ function HouseList(props: HouseListProps) {
           </tr>
         </thead>
         <tbody>
-          {houses.map((h) => (<HouseListRow key={h.id} rowData={h} selectHouse={selectHouse} />))}
+          {houses.map((h) => (<HouseListRow key={h.id} rowData={h} />))}
         </tbody>
         <tfoot>
           <tr>

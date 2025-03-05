@@ -1,34 +1,38 @@
-import { useCallback, useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import './App.css';
+import Banner from './components/Banner';
+import navValues from './utils/navValues';
+import ComponentPicker from './components/ComponentPicker';
+import NavigationContext from './contexts/NavigationContext';
 import { IHouse } from './types/IHouse';
 
-import Banner from './components/Banner';
-import HouseList from './components/HouseList';
-import House from './components/House';
-
+interface NavigationState {
+  current: string;
+  selectedHouse?: IHouse;
+  navigate: (navTo: string, house?: IHouse) => void;
+}
 function App() {
-  const [selectedHouse, setSelectedHouse] = useState<IHouse | undefined>(undefined);
-
-  // const handleSelectHouse = (house: IHouse) => {
-  //   // check if house data is valid
-  //   setSelectedHouse(house);
-  // };
-
-  // The Callback Hook is to cache setSelectedHouse: use wisely
-  const handleSelectHouse = useCallback((house: IHouse) => {
-    // check if house data is valid
-    setSelectedHouse(house);
-  }, []); // with no dependencies
-
+  const [nav, setNav] = useState<NavigationState>({
+    current: navValues.home,
+    navigate: () => {}, // Initialize with empty function
+  });
+  const navigate = useCallback(
+    (navTo: string, house?: IHouse) => {
+      setNav({ current: navTo, selectedHouse: house, navigate });
+    },
+    [setNav],
+  );
+  // Update navigate function in state
+  useEffect(() => {
+    setNav((prev) => ({ ...prev, navigate }));
+  }, [navigate]);
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Banner>Providing houses all over the world</Banner>
-      {
-        // eslint-disable-next-line max-len
-        selectedHouse ? <House houseData={selectedHouse} /> : <HouseList selectHouse={handleSelectHouse} />
-      }
-    </div>
+    <NavigationContext.Provider value={nav}>
+      <div className="min-h-screen bg-gray-100">
+        <Banner>Providing houses all over the world</Banner>
+        <ComponentPicker currentNavLocation={nav.current} />
+      </div>
+    </NavigationContext.Provider>
   );
 }
-
 export default App;

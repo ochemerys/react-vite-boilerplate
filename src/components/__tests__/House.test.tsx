@@ -1,42 +1,54 @@
-import { render, screen } from '@testing-library/react';
-import House from '../House';
-import { IHouse } from '../../types/IHouse';
+import {
+  render, screen, within, fireEvent,
+} from '@testing-library/react';
+import { HouseListRow } from '../HouseListRow';
 import currencyFormatter from '../../utils/currencyFormatter';
+import NavigationContext from '../../contexts/NavigationContext';
+import navValues from '../../utils/navValues';
+import House from '../House';
 
-describe('House component', () => {
-  it('should render application name as attribute', () => {
-    const dummyHouse:IHouse = {
-      id: 0, address: '', country: '', price: 0, description: '', image: '',
+describe('HouseListRow component', () => {
+  const mockNavigate = vi.fn();
+  const mockNavigationContext = {
+    current: 'home',
+    navigate: mockNavigate,
+  };
+  it('should render address cell value in HouseListRow component', () => {
+    const rowData = {
+      id: 0, address: 'address', country: 'country', price: 1111.234,
     };
-    render(<House houseData={dummyHouse} />);
-    expect(screen.getByText('House on the market')).toBeInTheDocument();
+    render(
+      <NavigationContext.Provider value={mockNavigationContext}>
+        <HouseListRow key={rowData.id} rowData={rowData} />
+      </NavigationContext.Provider>,
+    );
+    const row = screen.getByRole('row');
+    const cells = within(row).getAllByRole('cell');
+    expect(cells[0]).toHaveTextContent(rowData.address);
+    expect(cells[1]).toHaveTextContent('country');
+    expect(cells[2]).toHaveTextContent(currencyFormatter.format(rowData.price));
   });
 
-  it('should render default image for house when image name is empty', () => {
-    const dummyHouse:IHouse = {
-      id: 0, address: '', country: '', price: 0, description: '', image: '',
+  it('should call navigate with correct parameters when row is clicked', () => {
+    const rowData = {
+      id: 1, address: 'address', country: 'country', price: 1111.234,
     };
-    const expectedSrc = expect.stringMatching(/default-house.png/);
-    render(<House houseData={dummyHouse} />);
-    const img = screen.getByAltText('house');
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', expectedSrc);
+    render(
+      <NavigationContext.Provider value={mockNavigationContext}>
+        <HouseListRow key={rowData.id} rowData={rowData} />
+      </NavigationContext.Provider>,
+    );
+    const row = screen.getByRole('row');
+    fireEvent.click(row);
+    expect(mockNavigate).toHaveBeenCalledWith(navValues.house, rowData);
   });
 
-  it('should render house properly when correct data is passed to component', () => {
-    const testHouse:IHouse = {
-      id: 1, address: 'test address', country: 'thet country', price: 123, description: 'test description', image: '534182.jpeg',
-    };
-    const expectedSrc = expect.stringMatching(/534182.jpeg/);
-    render(<House houseData={testHouse} />);
-    expect(screen.getByText(testHouse.address)).toBeInTheDocument();
-    expect(screen.getByText(testHouse.country)).toBeInTheDocument();
-    expect(screen.getByText(currencyFormatter.format(testHouse.price))).toBeInTheDocument();
-    if (testHouse.description !== undefined) {
-      expect(screen.getByText(testHouse.description)).toBeInTheDocument();
-    }
-    const img = screen.getByAltText('house');
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', expectedSrc);
+  it('should render no house selected message when context has no selected house', () => {
+    render(
+      <NavigationContext.Provider value={mockNavigationContext}>
+        <House />
+      </NavigationContext.Provider>,
+    );
+    expect(screen.getByText('No house selected')).toBeInTheDocument();
   });
 });
