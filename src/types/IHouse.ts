@@ -1,5 +1,5 @@
 interface IHouse {
-  id: number;
+  id: string;
   address: string,
   country: string,
   price: number,

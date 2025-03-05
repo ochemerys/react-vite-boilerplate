@@ -1,7 +1,6 @@
 import {
-  render, screen, within, fireEvent, waitFor,
+  render, screen, within, waitFor,
 } from '@testing-library/react';
-import { MockedFunction } from 'vitest';
 import HouseList from '../HouseList';
 import currencyFormatter from '../../utils/currencyFormatter';
 
@@ -37,7 +36,7 @@ describe('HouseLst component', () => {
     await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
     // fetching data
     const rows = screen.getAllByRole('row');
-    expect(rows).toHaveLength(2 + 1 + 1); // Including header amd footer rows
+    expect(rows).toHaveLength(2 + 1); // Including header
 
     mockData.forEach((item, index) => {
       const cells = within(rows[index + 1]).getAllByRole('cell');
@@ -45,77 +44,5 @@ describe('HouseLst component', () => {
       expect(cells[1]).toHaveTextContent(item.country);
       expect(cells[2]).toHaveTextContent(currencyFormatter.format(item.price));
     });
-  });
-
-  it('should add new row when the button "Add" is clicked', async () => {
-    const newRowData = {
-      id: 3,
-      address: '123 Main St. Edmonton',
-      country: 'Canada',
-      price: 100000,
-    };
-    // api call response stubs
-    global.fetch = vi.fn()
-      .mockResolvedValueOnce({
-        // get items response
-        json: vi.fn().mockResolvedValue([]),
-      })
-      .mockResolvedValueOnce({
-        // create new item response
-        json: vi.fn().mockResolvedValue(newRowData),
-      });
-
-    render(<HouseList />);
-
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
-
-    const addressInput = screen.getByPlaceholderText('Enter Address');
-    addressInput.nodeValue = newRowData.address;
-    fireEvent.change(addressInput, { target: { value: newRowData.address } });
-
-    const countryInput = screen.getByPlaceholderText('Enter Country');
-    countryInput.nodeValue = newRowData.country;
-    fireEvent.change(countryInput, { target: { value: newRowData.country } });
-
-    const priceInput = screen.getByPlaceholderText('Enter Price');
-    priceInput.nodeValue = newRowData.price.toString();
-    fireEvent.change(priceInput, { target: { value: newRowData.price } });
-
-    expect(screen.getByRole('button', { name: 'Add' })).toBeInTheDocument();
-
-    const button = screen.getByRole('button', { name: 'Add' });
-    expect(button).toBeInTheDocument();
-    // check if correct request is made
-    await waitFor(() => expect(global.fetch).toHaveBeenCalledWith(apiUrl));
-
-    // just header + foooter rows are present at this point
-    expect(screen.getAllByRole('row')).toHaveLength(2);
-
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      const lastCall = (global.fetch as MockedFunction<typeof fetch>).mock.calls.at(-1);
-      if (!lastCall) throw new Error('No API calls found');
-
-      const body = lastCall[1]?.body;
-      if (typeof body !== 'string') {
-        throw new Error(`Expected body to be a string but got ${typeof body}`);
-      }
-
-      const requestBody = JSON.parse(body);
-      expect(requestBody.address).toBe(newRowData.address);
-      expect(requestBody.country).toBe(newRowData.country);
-      expect(requestBody.price).toBe(newRowData.price);
-    });
-
-    const rowsCount = 1 + 1 + 1; // one header row, one data row and one footer row
-    const newRows = screen.getAllByRole('row');
-    expect(newRows).toHaveLength(rowsCount);
-
-    // last data row cell
-    const cells = within(newRows[1]).getAllByRole('cell');
-    expect(cells[0]).toHaveTextContent(newRowData.address);
-    expect(cells[1]).toHaveTextContent(newRowData.country);
-    expect(cells[2]).toHaveTextContent(currencyFormatter.format(newRowData.price));
   });
 });

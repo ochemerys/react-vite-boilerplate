@@ -21,3 +21,7 @@ export interface HouseProps {
 export interface LoadingIndicatorProps {
   loadingState: string
 }
+
+export interface AddHouseProps {
+  onAddHouse: (house: IHouse) => void;
+}
