@@ -7,6 +7,64 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## Run api emmulator
+
+### Install json-server (if not installed)
+
+``` bash
+npm install -g json-server
+```
+
+### Run json-server (if it is not running yet)
+
+``` bash
+npx json-server data\data.json
+```
+
+## Run application
+
+### Install dependencies
+
+``` bash
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+``` bash
+npm run dev
+```
+
+### Run linting
+
+``` bash
+npm run lint
+```
+
+or 
+
+``` bash
+npm run lint:fix
+```
+
+### Type-Check, Compile and Minify for Production
+
+``` bash
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+``` bash
+npm run test:watch
+```
+or 
+
+``` bash
+npm test
+```
+
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
