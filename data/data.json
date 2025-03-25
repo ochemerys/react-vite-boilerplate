@@ -1,0 +1,20 @@
+{
+  "houses": [
+    {
+      "id": 1,
+      "address": "12 Valley of Kings, Geneva",
+      "country": "Switzerland",
+      "price": 900000,
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolorem repudiandae nostrum nesciunt illo commodi dolores rem ut? Veniam delectus laboriosam quas a rem labore accusamus facilis aperiam temporibus velit!",
+      "image": "164558.jpeg"
+    },
+    {
+      "id": 2,
+      "address": "89 Road of Forks, Bern",
+      "country": "Switzerland",
+      "price": 500000,
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum dolorem repudiandae nostrum nesciunt illo commodi dolores rem ut? Veniam delectus laboriosam quas a rem labore accusamus facilis aperiam temporibus velit!",
+      "image": "259600.jpeg"
+    }
+  ]
+}
