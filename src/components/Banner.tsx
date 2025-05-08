@@ -3,6 +3,9 @@ import { BannerProps } from './interfaces';
 import Logo from '../assets/react.svg?react';
 
 function Banner(props: BannerProps) {
+  const appName = import.meta.env.VITE_APP_NAME;
+  const mode = import.meta.env.MODE;
+
   const { headerText, children } = props;
   if (!headerText && !children) {
     throw new Error('Either headerText or children must be provided.');
@@ -16,6 +19,11 @@ function Banner(props: BannerProps) {
       </div>
       <div className="flex-grow text-center">
         <h1 className="text-3xl font-bold text-blue-700">{ innerHtml }</h1>
+        <p>
+          <span>{appName}</span>
+          <span> - Environment: </span>
+          <span>{mode}</span>
+        </p>
       </div>
     </header>
   );

@@ -9,6 +9,9 @@ import svgr from 'vite-plugin-svgr';
 // https://vite.dev/config/
 // https://vitest.dev/config/
 export default defineConfig({
+  define: {
+    'process.env': {}
+  },
   build: {
     outDir: 'dist',
     reportCompressedSize: true,
