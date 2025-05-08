@@ -4,9 +4,7 @@ import { HouseListRowProps } from './interfaces';
 
 function HouseListRow(props: HouseListRowProps) {
   const { rowData, selectHouse } = props;
-  const {
-    address, country, price,
-  } = rowData;
+  const { address, country, price } = rowData;
   return (
     <tr
       className="cursor-pointer hover:bg-gray-200"
@@ -14,7 +12,9 @@ function HouseListRow(props: HouseListRowProps) {
     >
       <td className="border-b border-gray-300 px-4 py-2">{address}</td>
       <td className="border-b border-gray-300 px-4 py-2">{country}</td>
-      <td className={`border-b border-gray-300 px-4 py-2 ${price >= 500000 ? 'text-blue-800' : ''}`}>
+      <td
+        className={`border-b border-gray-300 px-4 py-2 ${price >= 500000 ? 'text-blue-800' : ''}`}
+      >
         {currencyFormatter.format(price)}
       </td>
     </tr>

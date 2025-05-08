@@ -4,7 +4,7 @@ function LoadingIndicator(props: LoadingIndicatorProps) {
   const { loadingState } = props;
 
   return (
-    <div className="flex-grow text-center m-8">
+    <div className="m-8 flex-grow text-center">
       <h1 className="text-2xl font-bold text-yellow-700">{loadingState}</h1>
     </div>
   );

@@ -10,7 +10,7 @@ import houseApiBaseUrl from '../app.config';
 
 function HouseList(props: HouseListProps) {
   const { selectHouse } = props;
-  const emptyHouse:IHouse = {
+  const emptyHouse: IHouse = {
     id: 0,
     address: '',
     country: '',
@@ -28,10 +28,7 @@ function HouseList(props: HouseListProps) {
     const add = async () => {
       const house = await post(houseApiBaseUrl, newHouse);
 
-      setHouses([
-        ...houses,
-        house,
-      ]);
+      setHouses([...houses, house]);
     };
     add();
     setNewHouse(emptyHouse);
@@ -39,10 +36,12 @@ function HouseList(props: HouseListProps) {
 
   return (
     <div className="container mx-auto">
-      <div className="flex-grow text-center m-8">
-        <h1 className="text-2xl font-bold text-yellow-700">Houses currently on the market</h1>
+      <div className="m-8 flex-grow text-center">
+        <h1 className="text-2xl font-bold text-yellow-700">
+          Houses currently on the market
+        </h1>
       </div>
-      <table className="w-full mx-5">
+      <table className="mx-5 w-full">
         <thead>
           <tr>
             <th className="border-b border-gray-700 px-4 py-2">Address</th>
@@ -51,18 +50,20 @@ function HouseList(props: HouseListProps) {
           </tr>
         </thead>
         <tbody>
-          {houses.map((h) => (<HouseListRow key={h.id} rowData={h} selectHouse={selectHouse} />))}
+          {houses.map((h) => (
+            <HouseListRow key={h.id} rowData={h} selectHouse={selectHouse} />
+          ))}
         </tbody>
         <tfoot>
           <tr>
-            <td className="py-2 px-4 border-t">
+            <td className="border-t px-4 py-2">
               <form>
                 <input
                   id="address"
                   name="address"
                   type="text"
                   value={newHouse.address}
-                  className="w-full p-2 border border-gray-300 rounded"
+                  className="w-full rounded border border-gray-300 p-2"
                   placeholder="Enter Address"
                   onChange={(e) => {
                     setNewHouse({
@@ -73,12 +74,12 @@ function HouseList(props: HouseListProps) {
                 />
               </form>
             </td>
-            <td className="py-2 px-4 border-t">
+            <td className="border-t px-4 py-2">
               <input
                 id="country"
                 name="country"
                 type="text"
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full rounded border border-gray-300 p-2"
                 value={newHouse.country}
                 onChange={(e) => {
                   setNewHouse({
@@ -89,7 +90,7 @@ function HouseList(props: HouseListProps) {
                 placeholder="Enter Country"
               />
             </td>
-            <td className="py-2 px-4 border-t">
+            <td className="border-t px-4 py-2">
               <input
                 id="price"
                 name="price"
@@ -101,7 +102,7 @@ function HouseList(props: HouseListProps) {
                   });
                 }}
                 type="number"
-                className="w-full p-2 border border-gray-300 rounded"
+                className="w-full rounded border border-gray-300 p-2"
                 placeholder="Enter Price"
               />
             </td>
@@ -109,7 +110,13 @@ function HouseList(props: HouseListProps) {
         </tfoot>
       </table>
       <div className="flex justify-end p-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" type="button" onClick={addHouseHandler}>Add</button>
+        <button
+          className="rounded bg-blue-500 px-4 py-2 text-white"
+          type="button"
+          onClick={addHouseHandler}
+        >
+          Add
+        </button>
       </div>
     </div>
   );

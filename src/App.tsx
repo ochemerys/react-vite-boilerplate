@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import './App.css';
 import { IHouse } from './types/IHouse';
 
 import Banner from './components/Banner';
@@ -7,7 +6,9 @@ import HouseList from './components/HouseList';
 import House from './components/House';
 
 function App() {
-  const [selectedHouse, setSelectedHouse] = useState<IHouse | undefined>(undefined);
+  const [selectedHouse, setSelectedHouse] = useState<IHouse | undefined>(
+    undefined,
+  );
 
   // const handleSelectHouse = (house: IHouse) => {
   //   // check if house data is valid
@@ -25,7 +26,11 @@ function App() {
       <Banner>Providing houses all over the world</Banner>
       {
         // eslint-disable-next-line max-len
-        selectedHouse ? <House houseData={selectedHouse} /> : <HouseList selectHouse={handleSelectHouse} />
+        selectedHouse ? (
+          <House houseData={selectedHouse} />
+        ) : (
+          <HouseList selectHouse={handleSelectHouse} />
+        )
       }
     </div>
   );
