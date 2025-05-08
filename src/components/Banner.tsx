@@ -1,4 +1,6 @@
 import { BannerProps } from './interfaces';
+// import svg as react component
+import Logo from '../assets/react.svg?react';
 
 function Banner(props: BannerProps) {
   const { headerText, children } = props;
@@ -9,7 +11,8 @@ function Banner(props: BannerProps) {
   return (
     <header className="flex items-center justify-between p-4 bg-gray-300">
       <div className="flex-shrink-0">
-        <img src="./icons/GloboLogo.png" alt="logo" className="w-28 h-24" />
+        {/* <img src="./icons/GloboLogo.png" alt="logo" className="w-28 h-24" /> */}
+        <Logo />
       </div>
       <div className="flex-grow text-center">
         <h1 className="text-3xl font-bold text-blue-700">{ innerHtml }</h1>

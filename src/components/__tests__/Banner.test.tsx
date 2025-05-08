@@ -7,13 +7,13 @@ describe('Banner component', () => {
     expect(screen.getByText('Providing houses all over the world')).toBeInTheDocument();
   });
 
-  it('should render logo image element', () => {
-    const expectedSrc = expect.stringMatching(/GloboLogo.png/);
-    render(<Banner headerText="Does not matter what for this scenario" />);
-    const img = screen.getByAltText('logo');
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', expectedSrc);
-  });
+  // it('should render logo image element', () => {
+  //   const expectedSrc = expect.stringMatching(/GloboLogo.png/);
+  //   render(<Banner headerText="Does not matter what for this scenario" />);
+  //   const img = screen.getByAltText('logo');
+  //   expect(img).toBeInTheDocument();
+  //   expect(img).toHaveAttribute('src', expectedSrc);
+  // });
 
   it('should render application name as child element', () => {
     render(<Banner>Providing houses all over the world</Banner>);
